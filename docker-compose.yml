@@ -1,0 +1,20 @@
+version: "3"
+
+services:
+  order-manager-db:
+    image: postgres:15
+    container_name: order-manager-db
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: p0stgr3s
+      POSTGRES_USER: postgres
+      POSTGRES_DB: order-manager-db
+    volumes:
+      - ./order_manager_db:/var/lib/postgresql/data
+    networks:
+      - order-manager-network
+
+networks:
+  order-manager-network:
+    driver: bridge
