@@ -2,7 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
 import { Burger } from './burger.entity';
 import { Ingredient } from './ingredient.entity';
 
-@Entity('burger-ingredient')
+@Entity('burger_ingredient')
 export class BurgerIngredient {
   @PrimaryGeneratedColumn()
   id: number;

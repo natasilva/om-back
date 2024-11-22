@@ -1,10 +1,4 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  ManyToMany,
-  CreateDateColumn,
-} from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany } from 'typeorm';
 import { OrderDrink } from './order-drink.entity';
 import { OrderAdditional } from './order-additional.entity';
 import { OrderBurger } from './order-burger.entity';
@@ -36,8 +30,8 @@ export class Order {
   @Column('text', { array: true })
   notes: string[];
 
-  @CreateDateColumn({ type: 'timestamp' })
-  created_at: Date;
+  @Column('timestamp')
+  orderDate: Date;
 
   @ManyToMany(() => OrderDrink)
   orderDrinks: OrderDrink[];
