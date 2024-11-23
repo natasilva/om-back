@@ -7,8 +7,29 @@ import { IngredientController } from './controllers/ingredient.controller';
 import { DrinkService } from './services/drink.service';
 import { BurgerService } from './services/burger.service';
 import { IngredientService } from './services/ingredient.service';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Ingredient } from './entities/ingredient.entity';
+import { Burger } from './entities/burger.entity';
+import { Drink } from './entities/drink.entity';
+import { Order } from './entities/order.entity';
+import { OrderBurger } from './entities/order-burger.entity';
+import { OrderAdditional } from './entities/order-additional.entity';
+import { OrderDrink } from './entities/order-drink.entity';
+import { BurgerIngredient } from './entities/burger-ingredient.entity';
 
 @Module({
+  imports: [
+    TypeOrmModule.forFeature([
+      Order,
+      Drink,
+      Burger,
+      Ingredient,
+      OrderBurger,
+      OrderAdditional,
+      OrderDrink,
+      BurgerIngredient,
+    ]),
+  ],
   controllers: [
     OrderController,
     DrinkController,

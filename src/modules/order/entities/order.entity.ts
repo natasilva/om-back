@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { OrderDrink } from './order-drink.entity';
 import { OrderAdditional } from './order-additional.entity';
 import { OrderBurger } from './order-burger.entity';
@@ -33,12 +33,12 @@ export class Order {
   @Column('timestamp')
   orderDate: Date;
 
-  @ManyToMany(() => OrderDrink)
+  @OneToMany(() => OrderDrink, (orderDrink) => orderDrink.order)
   orderDrinks: OrderDrink[];
 
-  @ManyToMany(() => OrderAdditional)
+  @OneToMany(() => OrderAdditional, (orderAdditional) => orderAdditional.order)
   orderAdditionals: OrderAdditional[];
 
-  @ManyToMany(() => OrderBurger)
+  @OneToMany(() => OrderBurger, (orderBurger) => orderBurger.order)
   orderBurgers: OrderBurger[];
 }

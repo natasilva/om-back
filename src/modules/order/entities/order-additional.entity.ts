@@ -14,5 +14,5 @@ export class OrderAdditional {
   order: Order;
 
   @ManyToOne(() => Ingredient)
-  Ingredient: Ingredient;
+  ingredient: Ingredient;
 }

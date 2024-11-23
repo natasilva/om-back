@@ -14,5 +14,5 @@ export class BurgerIngredient {
   burger: Burger;
 
   @ManyToOne(() => Ingredient)
-  Ingredient: Ingredient;
+  ingredient: Ingredient;
 }

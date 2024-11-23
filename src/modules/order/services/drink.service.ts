@@ -1,26 +1,30 @@
 import { Injectable } from '@nestjs/common';
 import { CreateDrinkDto } from '../dto/create-drink.dto';
-// import { UpdateDrinkDto } from '../dto/update-drink.dto';
+import { Drink } from '../entities/drink.entity';
+import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class DrinkService {
-  create(createDrinkDto: CreateDrinkDto) {
-    return 'This action adds a new drink';
+  constructor(
+    @InjectRepository(Drink) private drinkRepository: Repository<Drink>,
+  ) {}
+
+  async create(createDrinkDto: CreateDrinkDto) {
+    const drink = this.drinkRepository.create({
+      ...createDrinkDto,
+      has_sugar: createDrinkDto.has_sugar == 'true',
+    });
+
+    return await this.drinkRepository.save(drink);
   }
 
-  findAll() {
-    return `This action returns all drink`;
+  async findAll() {
+    const drinks = await this.drinkRepository.find();
+    return drinks;
   }
 
   findOne(id: number) {
     return `This action returns a #${id} drink`;
-  }
-
-  // update(id: number, updateDrinkDto: UpdateDrinkDto) {
-  //   return `This action updates a #${id} drink`;
-  // }
-
-  remove(id: number) {
-    return `This action removes a #${id} drink`;
   }
 }

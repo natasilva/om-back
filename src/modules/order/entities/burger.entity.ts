@@ -2,8 +2,8 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
-  ManyToMany,
   CreateDateColumn,
+  OneToMany,
 } from 'typeorm';
 import { BurgerIngredient } from './burger-ingredient.entity';
 
@@ -24,6 +24,9 @@ export class Burger {
   @CreateDateColumn({ type: 'timestamp' })
   created_at: Date;
 
-  @ManyToMany(() => BurgerIngredient)
+  @OneToMany(
+    () => BurgerIngredient,
+    (burgerIngredient) => burgerIngredient.burger,
+  )
   burgerIngredients: BurgerIngredient[];
 }
