@@ -3,6 +3,7 @@ import { CreateIngredientDto } from '../dto/create-ingredient.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Ingredient } from '../entities/ingredient.entity';
+import { FindAllIngredientDto } from '../dto/find-all-ingredient.dto';
 
 @Injectable()
 export class IngredientService {
@@ -20,8 +21,14 @@ export class IngredientService {
     return await this.ingredientRepository.save(ingredient);
   }
 
-  async findAll() {
-    const ingredients = await this.ingredientRepository.find();
+  async findAll(findAllIngredientDto: FindAllIngredientDto) {
+    const { is_additional } = findAllIngredientDto;
+
+    const ingredients = await this.ingredientRepository.find({
+      where: {
+        is_additional: is_additional == 'true',
+      },
+    });
     return ingredients;
   }
 

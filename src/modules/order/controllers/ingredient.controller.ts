@@ -1,6 +1,7 @@
-import { Controller, Get, Post, Body, Param } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Query } from '@nestjs/common';
 import { IngredientService } from '../services/ingredient.service';
 import { CreateIngredientDto } from '../dto/create-ingredient.dto';
+import { FindAllIngredientDto } from '../dto/find-all-ingredient.dto';
 
 @Controller('ingredients')
 export class IngredientController {
@@ -12,8 +13,8 @@ export class IngredientController {
   }
 
   @Get()
-  findAll() {
-    return this.ingredientService.findAll();
+  findAll(@Query() findAllIngredientDto: FindAllIngredientDto) {
+    return this.ingredientService.findAll(findAllIngredientDto);
   }
 
   @Get(':id')
