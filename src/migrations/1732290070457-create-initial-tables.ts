@@ -14,7 +14,7 @@ export class CreateInitialTables1732290070457 implements MigrationInterface {
       `CREATE TABLE "burger_ingredient" ("id" SERIAL NOT NULL, "quantity" integer NOT NULL, "burgerId" integer, "ingredientId" integer, CONSTRAINT "PK_9e2638b8c4f651a6506aab8c6a2" PRIMARY KEY ("id"))`,
     );
     await queryRunner.query(
-      `CREATE TABLE "burger" ("id" SERIAL NOT NULL, "code" character varying NOT NULL, "description" character varying NOT NULL, "value" numeric NOT NULL, "created_at" TIMESTAMP NOT NULL DEFAULT now(), CONSTRAINT "UQ_a91f1f81fc5625a63c31ad3562e" UNIQUE ("code"), CONSTRAINT "PK_80c737e94dfc6a7cecd5a3a2a43" PRIMARY KEY ("id"))`,
+      `CREATE TABLE "burger" ("id" SERIAL NOT NULL, "code" character varying NOT NULL, "description" character varying NOT NULL, "unit_price" numeric NOT NULL, "created_at" TIMESTAMP NOT NULL DEFAULT now(), CONSTRAINT "UQ_a91f1f81fc5625a63c31ad3562e" UNIQUE ("code"), CONSTRAINT "PK_80c737e94dfc6a7cecd5a3a2a43" PRIMARY KEY ("id"))`,
     );
     await queryRunner.query(
       `CREATE TABLE "order_burger" ("id" SERIAL NOT NULL, "quantity" integer NOT NULL, "orderId" integer, "burgerId" integer, CONSTRAINT "PK_f916fd6b97e88efc6b66cb5fb2c" PRIMARY KEY ("id"))`,

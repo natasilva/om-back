@@ -11,10 +11,7 @@ export class DrinkService {
   ) {}
 
   async create(createDrinkDto: CreateDrinkDto) {
-    const drink = this.drinkRepository.create({
-      ...createDrinkDto,
-      has_sugar: createDrinkDto.has_sugar == 'true',
-    });
+    const drink = this.drinkRepository.create(createDrinkDto);
 
     return await this.drinkRepository.save(drink);
   }

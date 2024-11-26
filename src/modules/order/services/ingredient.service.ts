@@ -13,22 +13,24 @@ export class IngredientService {
   ) {}
 
   async create(createIngredientDto: CreateIngredientDto) {
-    const ingredient = this.ingredientRepository.create({
-      ...createIngredientDto,
-      is_additional: createIngredientDto.is_additional == 'true',
-    });
-
+    const ingredient = this.ingredientRepository.create(createIngredientDto);
     return await this.ingredientRepository.save(ingredient);
   }
 
   async findAll(findAllIngredientDto: FindAllIngredientDto) {
     const { is_additional } = findAllIngredientDto;
 
-    const ingredients = await this.ingredientRepository.find({
-      where: {
-        is_additional: is_additional == 'true',
-      },
-    });
+    const params = {};
+
+    if (typeof is_additional !== 'undefined') {
+      Object.assign(params, {
+        where: {
+          is_additional: is_additional == 'true',
+        },
+      });
+    }
+
+    const ingredients = await this.ingredientRepository.find(params);
     return ingredients;
   }
 

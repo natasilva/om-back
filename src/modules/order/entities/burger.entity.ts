@@ -19,7 +19,7 @@ export class Burger {
   description: string;
 
   @Column('decimal')
-  value: number;
+  unit_price: number;
 
   @CreateDateColumn({ type: 'timestamp' })
   created_at: Date;

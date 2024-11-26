@@ -23,7 +23,7 @@ export class BurgerService {
       const burger = this.burgerRepository.create({
         code: createBurgerDto.code,
         description: createBurgerDto.description,
-        value: createBurgerDto.value,
+        unit_price: createBurgerDto.unit_price,
       });
 
       const savedBurger = await queryRunner.manager.save(burger);

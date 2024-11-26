@@ -1,11 +1,19 @@
 import { CreateBurgerIngredientDTO } from './create-burger-ingredient.dto';
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsArray, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 export class CreateBurgerDto {
   @IsNotEmpty()
   @IsString()
   code: string;
+
+  @IsNotEmpty()
+  @IsString()
   description: string;
-  value: number;
+
+  @IsNotEmpty()
+  @IsNumber()
+  unit_price: number;
+
+  @IsArray()
   burgerIngredients: CreateBurgerIngredientDTO[];
 }
