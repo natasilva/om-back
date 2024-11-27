@@ -29,6 +29,7 @@ export class OrderService {
       const order = this.orderRepository.create({
         code: createOrderDto.code,
         description: createOrderDto.description,
+        value: createOrderDto.value,
         notes: createOrderDto.notes,
         name: createOrderDto.name,
         phone: createOrderDto.phone,

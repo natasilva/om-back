@@ -1,9 +1,15 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class CreateInitialTables1732290070457 implements MigrationInterface {
-  name = 'CreateInitialTables1732290070457';
+export class CreateInitialTables1732729069672 implements MigrationInterface {
+  name = 'CreateInitialTables1732729069672';
 
   public async up(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.query(
+      `CREATE TABLE "drink" ("id" SERIAL NOT NULL, "code" character varying NOT NULL, "description" character varying NOT NULL, "unit_price" numeric NOT NULL, "has_sugar" boolean NOT NULL, CONSTRAINT "UQ_c6def96c13961c406168434e4a0" UNIQUE ("code"), CONSTRAINT "PK_d2bcca4059e927221cce0f95756" PRIMARY KEY ("id"))`,
+    );
+    await queryRunner.query(
+      `CREATE TABLE "order_drink" ("id" SERIAL NOT NULL, "quantity" integer NOT NULL, "orderId" integer, "drinkId" integer, CONSTRAINT "PK_72bdccef2095a106ca85ac1361c" PRIMARY KEY ("id"))`,
+    );
     await queryRunner.query(
       `CREATE TABLE "ingredient" ("id" SERIAL NOT NULL, "code" character varying NOT NULL, "description" character varying NOT NULL, "unit_price" numeric NOT NULL, "is_additional" boolean NOT NULL, CONSTRAINT "UQ_a128deb30979b06c8bba38cccd4" UNIQUE ("code"), CONSTRAINT "PK_6f1e945604a0b59f56a57570e98" PRIMARY KEY ("id"))`,
     );
@@ -20,13 +26,13 @@ export class CreateInitialTables1732290070457 implements MigrationInterface {
       `CREATE TABLE "order_burger" ("id" SERIAL NOT NULL, "quantity" integer NOT NULL, "orderId" integer, "burgerId" integer, CONSTRAINT "PK_f916fd6b97e88efc6b66cb5fb2c" PRIMARY KEY ("id"))`,
     );
     await queryRunner.query(
-      `CREATE TABLE "order" ("id" SERIAL NOT NULL, "code" character varying NOT NULL, "description" character varying NOT NULL, "name" character varying NOT NULL, "phone" character varying NOT NULL, "address" jsonb NOT NULL, "notes" text array NOT NULL, "orderDate" TIMESTAMP NOT NULL, CONSTRAINT "UQ_729b3eea7ce540930dbb7069498" UNIQUE ("code"), CONSTRAINT "PK_1031171c13130102495201e3e20" PRIMARY KEY ("id"))`,
+      `CREATE TABLE "order" ("id" SERIAL NOT NULL, "code" character varying NOT NULL, "description" character varying NOT NULL, "value" numeric NOT NULL, "name" character varying NOT NULL, "phone" character varying NOT NULL, "address" jsonb NOT NULL, "notes" text array NOT NULL, "orderDate" TIMESTAMP NOT NULL, CONSTRAINT "UQ_729b3eea7ce540930dbb7069498" UNIQUE ("code"), CONSTRAINT "PK_1031171c13130102495201e3e20" PRIMARY KEY ("id"))`,
     );
     await queryRunner.query(
-      `CREATE TABLE "drink" ("id" SERIAL NOT NULL, "code" character varying NOT NULL, "description" character varying NOT NULL, "unit_price" numeric NOT NULL, "has_sugar" boolean NOT NULL, CONSTRAINT "UQ_c6def96c13961c406168434e4a0" UNIQUE ("code"), CONSTRAINT "PK_d2bcca4059e927221cce0f95756" PRIMARY KEY ("id"))`,
+      `ALTER TABLE "order_drink" ADD CONSTRAINT "FK_9097736f4a46d15355a36422b85" FOREIGN KEY ("orderId") REFERENCES "order"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`,
     );
     await queryRunner.query(
-      `CREATE TABLE "order_drink" ("id" SERIAL NOT NULL, "quantity" integer NOT NULL, "orderId" integer, "drinkId" integer, CONSTRAINT "PK_72bdccef2095a106ca85ac1361c" PRIMARY KEY ("id"))`,
+      `ALTER TABLE "order_drink" ADD CONSTRAINT "FK_82453f2fc4a1a0d22a10f355110" FOREIGN KEY ("drinkId") REFERENCES "drink"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`,
     );
     await queryRunner.query(
       `ALTER TABLE "order_additional" ADD CONSTRAINT "FK_65ebed2596a66f57dfe942d8a4f" FOREIGN KEY ("orderId") REFERENCES "order"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`,
@@ -46,21 +52,9 @@ export class CreateInitialTables1732290070457 implements MigrationInterface {
     await queryRunner.query(
       `ALTER TABLE "order_burger" ADD CONSTRAINT "FK_670404a2c52b1304c0564b18c06" FOREIGN KEY ("burgerId") REFERENCES "burger"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`,
     );
-    await queryRunner.query(
-      `ALTER TABLE "order_drink" ADD CONSTRAINT "FK_9097736f4a46d15355a36422b85" FOREIGN KEY ("orderId") REFERENCES "order"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`,
-    );
-    await queryRunner.query(
-      `ALTER TABLE "order_drink" ADD CONSTRAINT "FK_82453f2fc4a1a0d22a10f355110" FOREIGN KEY ("drinkId") REFERENCES "drink"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`,
-    );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.query(
-      `ALTER TABLE "order_drink" DROP CONSTRAINT "FK_82453f2fc4a1a0d22a10f355110"`,
-    );
-    await queryRunner.query(
-      `ALTER TABLE "order_drink" DROP CONSTRAINT "FK_9097736f4a46d15355a36422b85"`,
-    );
     await queryRunner.query(
       `ALTER TABLE "order_burger" DROP CONSTRAINT "FK_670404a2c52b1304c0564b18c06"`,
     );
@@ -79,13 +73,19 @@ export class CreateInitialTables1732290070457 implements MigrationInterface {
     await queryRunner.query(
       `ALTER TABLE "order_additional" DROP CONSTRAINT "FK_65ebed2596a66f57dfe942d8a4f"`,
     );
-    await queryRunner.query(`DROP TABLE "order_drink"`);
-    await queryRunner.query(`DROP TABLE "drink"`);
+    await queryRunner.query(
+      `ALTER TABLE "order_drink" DROP CONSTRAINT "FK_82453f2fc4a1a0d22a10f355110"`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE "order_drink" DROP CONSTRAINT "FK_9097736f4a46d15355a36422b85"`,
+    );
     await queryRunner.query(`DROP TABLE "order"`);
     await queryRunner.query(`DROP TABLE "order_burger"`);
     await queryRunner.query(`DROP TABLE "burger"`);
     await queryRunner.query(`DROP TABLE "burger_ingredient"`);
     await queryRunner.query(`DROP TABLE "order_additional"`);
     await queryRunner.query(`DROP TABLE "ingredient"`);
+    await queryRunner.query(`DROP TABLE "order_drink"`);
+    await queryRunner.query(`DROP TABLE "drink"`);
   }
 }

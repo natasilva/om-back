@@ -14,6 +14,9 @@ export class Order {
   @Column()
   description: string;
 
+  @Column('decimal')
+  value: number;
+
   @Column()
   name: string;
 

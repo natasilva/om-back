@@ -6,6 +6,7 @@ export class CreateOrderDto {
   code: string;
   description: string;
   name: string;
+  value: number;
   phone: string;
   orderDate: Date;
   address: {
