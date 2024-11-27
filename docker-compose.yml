@@ -15,6 +15,23 @@ services:
     networks:
       - order-manager-network
 
+  order-manager-back:
+    image: om-back
+    container_name: order-manager-back
+    ports:
+      - "3000:3000"
+    depends_on:
+      - order-manager-db
+    environment:
+      TYPEORM_HOST: order-manager-db
+      TYPEORM_PORT: 5432
+      TYPEORM_USERNAME: postgres
+      TYPEORM_PASSWORD: p0stgr3s
+      TYPEORM_DATABASE: order-manager-db
+      NODE_ENV: production
+    networks:
+      - order-manager-network
+
 networks:
   order-manager-network:
     driver: bridge
