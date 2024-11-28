@@ -20,7 +20,7 @@ Para executar este projeto localmente, você precisará de:
 - **npm** ou **yarn** (gerenciador de pacotes)
 - **PostgreSQL** instalado ou rodando via Docker
 
-### Com executar a aplicação com Docker
+## Como executar a aplicação com Docker
 
 ### 1. Clone o Repositório
 
@@ -53,7 +53,7 @@ Aqui as migrations serão executadas por dentro do container da aplicação
 docker-compose exec order-manager-back npm run migrate:prod
 ```
 
-### Como executar a aplicação sem Docker
+## Como executar a aplicação sem Docker
 
 Se preferir rodar a aplicação diretamente em sua máquina sem usar Docker, siga as instruções abaixo:
 
