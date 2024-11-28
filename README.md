@@ -1,7 +1,7 @@
 
 ## Descrição
 
-Este é o backend do "Order Manager", um sistema de gerenciamento de pedidos para uma lanchonete (desafio técnico da Salutem). Ele foi desenvolvido com **Node.js**, com **NestJS** e com **TypeORM** para a interação com o banco de dados **PostgreSQL**. O objetivo deste sistema web é gerenciar pedidos, hambúrgueres, bebidas e ingredientes.
+Este é o backend do "Order Manager", um sistema de gerenciamento de pedidos para uma lanchonete (desafio técnico). Ele foi desenvolvido com **Node.js**, com **NestJS** e com **TypeORM** para a interação com o banco de dados **PostgreSQL**. O objetivo deste sistema web é gerenciar pedidos, hambúrgueres, bebidas e ingredientes.
 
 ## Tecnologias Utilizadas
 
