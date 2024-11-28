@@ -19,9 +19,10 @@ FROM node:18-alpine AS runner
 # Diretório de trabalho na imagem final
 WORKDIR /app
 
-# Copia apenas o necessário da etapa de build
+# Copia o código compilado (dist), node_modules, e também o diretório src
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/src ./src
 COPY package*.json ./
 
 # Porta exposta
