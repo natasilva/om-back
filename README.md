@@ -82,3 +82,7 @@ Aqui as migrations serão executadas diretamente (diferentemente do "npm run mig
 ```bash
 npm run migrate:dev
 ```
+
+A modelagem de entidades utilizada foi esta:
+
+![Modelagem das entidades](diagrams/entity-diagram.png)
